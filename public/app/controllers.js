@@ -2,7 +2,7 @@ angular.module('RunCtrls', ['RunServices'])
 
 //runs
 
-.controller('HomeCtrl', ['$scope', 'Run', function($scope, Run) {
+.controller('HomeCtrl', ['$http', '$scope', '$location', '$routeParams', 'Run', function($http, $scope, $location, $routeParams, Run) {
   $scope.runs = [];
   $scope.search = '';
   console.log("I'm in Home controller");
@@ -13,28 +13,58 @@ angular.module('RunCtrls', ['RunServices'])
     console.log(data)
   });
 
-  $scope.deleteRun = function(id, runsIdx) {
-    Run.delete({id: id}, function success(data) {
-      $scope.runs.splice(runsIdx, 1);
-    }, function error(data) {
-      console.log(data);
-    });
+  $scope.updateRun = function(){
+    console.log('updating?')
+    console.log($routeParams.id)
+    Run.query({id:  $routeParams.id}, function success(run) { 
+      console.log(run)
+    $http({
+      method: 'PUT',
+      url: '/api/runs/' + $routeParams.id,
+      data: {id: $routeParams.id, 
+                title: $scope.run.title, 
+                 date: $scope.run.date, 
+                 minutes: $scope.run.minutes, 
+                 hours: $scope.run.hours, 
+                 distance: $scope.run.distance, 
+                 note: $scope.run.note
+               }
+        
+      })
+    })
+  }
+    //Run.update({ id:  $routeParams.id}, run, function success(data) {
+
+  $scope.deleteRun = function(id, idx) {
+    // Run.delete({id: id}, function success(run) { 
+    $http({
+      method: 'DELETE',
+      url: '/api/runs/' + id,
+
+      // data: {id: $routeParams.id, 
+      //           title: $scope.run.title, 
+      //            date: $scope.run.date, 
+      //            minutes: $scope.run.minutes, 
+      //            hours: $scope.run.hours, 
+      //            distance: $scope.run.distance, 
+      //            note: $scope.run.note
+          
+        
+      })
   }
 }])
+
 .controller('ShowCtrl', ['Auth', '$scope', '$routeParams', 'Run', function(Auth, $scope, $routeParams, Run) {
 	userId  = Auth.currentUser().id
 	$scope.userId = userId
-	console.log('***',userId)
   $scope.run = {};
   Run.query({user: userId, limit: 10}, function success(data) {
     $scope.runs = data;
-    console.log('testing',data)
   }, function error(data) {
     console.log(data);
   });
 }])
 .controller('NewCtrl', ['Auth', '$scope', '$location', 'Run', function(Auth, $scope, $location, Run) {
-  console.log('im in new controller')
   var userId  = Auth.currentUser().id
   $scope.run = {
     title: '',
@@ -60,7 +90,6 @@ angular.module('RunCtrls', ['RunServices'])
 //auth
 
 .controller('NavCtrl', ['$scope', 'Auth', function($scope, Auth) {
-	console.log("I'm in NavController");
 	$scope.logout = function() {
 		Auth.removeToken();
 		console.log('My token:', Auth.getToken());
@@ -97,7 +126,6 @@ angular.module('RunCtrls', ['RunServices'])
       $location.path('/weather');
     }, function error(res) {
       console.log(data);
-      console.log('hitting this?')
     });
   }
 }])
@@ -106,67 +134,73 @@ angular.module('RunCtrls', ['RunServices'])
 
 .controller('WeatherCtrl', ['$scope', '$http', function($scope, $http){
 
-			$scope.getTemperature = function(){
-				console.log('hittinh?')
-				$http({
-				 method: 'GET',
-				 url: 'http://localhost:3000/api/temperatures/'+$scope.place 
-				}).then(function success(res){
-					if(res){
-						console.log('inside',res)
-						$scope.wDescription = res.data.weather[0].description; 
-						$scope.wTemp = res.data.main.temp;
-						$scope.wPlace = res.data.name;
-						console.log($scope.wDescription, '$scope.wDescription')
-					}
+  $scope.getTemperature = function(){
+    $http({
+      method: 'GET',
+      url: 'http://localhost:3000/api/temperatures/'+$scope.place 
+    }).then(function success(res){
+      if(res){
+        $scope.wDescription = res.data.weather[0].description; 
+        $scope.wTemp = res.data.main.temp;
+        $scope.wPlace = res.data.name;
+          console.log($scope.wTemp);
+        switch (true) {
+          case $scope.wTemp >= 85:
+            clothesArray = death
+            console.log(clothesArray)
+          break;
+          case $scope.wTemp >= 70:
+            clothesArray = hot
+            console.log(clothesArray)
+          break;
+          case $scope.wTemp >= 50:
+            clothesArray = warm 
+            console.log(clothesArray)
+          break;
+          case $scope.wTemp >= 40:
+            clothesArray = brisk 
+            console.log(clothesArray)
+          break;
+          case scope.wTemp >= 20:
+            clothesArray = cold
+            console.log(clothesArray)
+          break;
+          case $scope.wTemp >= 0:
+            clothesArray = verycold
+            console.log(clothesArray)
+          break;
+        }
+        $scope.clothesArray = clothesArray
+      }
+    }, function error(res) {
+      console.log(res)
+    });     
+     
+        var clothesArray = [];
+        var veryCold = ['Mittens', 'Long sleeve', 'Heavy jacket', 'Running tights', 'Hat'];
+        var cold = ['Mittens', 'Long sleeve', 'Light jacket', 'Running tights', 'Hat'];
+        var brisk = ['Short sleeve', 'Running tights'];
+        var warm = [''];
+        var hot =['Short sleeve', 'Shorts'];
+        var death = ['Shorts', 'or birthday suit'];
+        var realdeath = ['Would not suggest running']
 
-							   console.log(res)
-							 }, function error(res) {
-								}	   
-				) 
-				console.log('test',$scope.wDescription)
-				
+    // $scope.getclothes = function(){
+
+       // var weatherClothing = $('input[type="text"]: submit');
+       // console.log($scope.wDescription, '$scope.wDescription')
+       // console.log('testing outside if', res.data.main.temp)
+       // if($scope.wTemp){
+       //  console.log('testing inside if')
 
 
+       
+       //   }
+        
+      // }
 
-
-				// if (Array.isArray(location)){
-				// 	req.params.lat = location[0];
-				// 	req.params.lon = location[1];
-				// } else {
-				// 	req.params.q=location;
-				// }
-				// $http(req).success(function(data){
-				// 	if(data && data.weather){
-				// 		$scope.wDescription = data.weather[0].description;
-				// 		$scope.wTemp = data.main.temp;
-				// 		$scope.wPlace = data.name;
-				// 		console.log(data.name)
-				// 	}
-				// });
-
-				// if(angular.isDefined($element.attr('location'))){
-				// 	$scope.$watch('location', function(){
-				// 		$scope.wTemp=false;
-				// 		if(!$scope.location) return;
-				// 		getTemperature($scope.location)
-				// 	});
-				// } else {
-				// 	if(navigator.geolocation){
-				// 		navigator.geolocation.getCurrentPosition(function(position){
-				// 			getTemperature([position.coords.latitude, position.coords.longitude]);
-				// 		});
-				// 	} else {
-				// 		alert('Sorry your browser does not support geolocation.');
-				// 	}
-				// 	replace: true,
-					// template: '<div class="well"><span ng-hide="wTemp">Loading..</span><span ng-show="wTemp">It is {{wTemp}}&deg;F {{wDescription}} in {{wPlace}}.</span></div>'
-				// }	
-
-		
-
-			}
-
+        }
+// close controller
 		}
 	]
 )

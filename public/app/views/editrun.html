@@ -28,9 +28,9 @@
 
             <br>
 
-            <div class="row">
+            <div ng-controller="HomeCtrl" class="row">
               <div class="col-sm-10">
-                <form ng-submit="createRun()" class="form col-md-12 center-block">
+                <form ng-submit="updateRun()" class="form col-md-12 center-block">
                   <div class="form-group">
                     <input type="text" class="form-control input-lg" placeholder="Title" ng-model="run.title">
                   </div>

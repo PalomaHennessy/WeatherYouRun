@@ -31,7 +31,7 @@
                         <div class="row" ng-repeat="run in runs | filter: {user: userId}">
                           <div class="col-sm-10">
                             <h3>{{run.title}}</h3>
-                            <h4><small class="text-muted">{{run.date}} • <a ng-href="/profile/{{run._id}}" class="text-muted">Edit Run</a> • <a ng-click="deleteRun(run._id, $index)" class="text-muted">Delete Run</a></small></h4>
+                            <h4><small class="text-muted">{{run.date}} • <a ng-href="/profile/{{run._id}}" class="text-muted">Edit Run</a> • <a ng-controller="HomeCtrl" ng-click="deleteRun(run._id, $index)" class="text-muted">Delete Run</a></small></h4>
                           	<h4>Distance: {{run.distance}} miles</h4>
                           	<h4>Total time: {{run.hours}} hours and {{run.minutes}} minutes</h4>
                           	<h4>Notes: {{run.note}}</h4>

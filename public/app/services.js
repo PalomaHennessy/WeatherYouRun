@@ -7,6 +7,10 @@ angular.module('RunServices', ['ngResource'])
         method: "GET",
         cache: false,
         isArray: true
+      },
+      update: {
+        method: 'PUT',
+        cache: false
       }
     });
 }])

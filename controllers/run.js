@@ -27,7 +27,7 @@ router.route('/:id')
 	});
 })
 .put(function(req, res){
-	Run.findByIdAndUpdate(req.params.id, function(err, run){
+	Run.findByIdAndUpdate(req.params.id, req.body, function(err, run){
 		if (err) return res.status(500).send(err);
 		res.send({'message': 'success'});
 	});
