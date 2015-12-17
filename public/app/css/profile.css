@@ -75,7 +75,7 @@ a {
   text-shadow:0 0 0;
 }
 
-/* center and adjust the sidebar contents on smaller devices */
+
 @media (max-width: 768px) {
   #sidebar,#sidebar a.logo {
     text-align:center;

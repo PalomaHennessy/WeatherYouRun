@@ -39,7 +39,8 @@ angular.module('RunCtrls', ['RunServices'])
   $scope.run = {
     title: '',
     date: '',
-    time: '',
+    minutes: '',
+    hours: '',
     distance: '',
     note: '',
     user: userId

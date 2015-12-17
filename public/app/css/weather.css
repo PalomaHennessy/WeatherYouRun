@@ -35,7 +35,7 @@ a {
 }
 
 .box2 {
-    bottom: 0; /* need increase for footer */
+    bottom: 0; /* need to increase for footer */
     left: 0;
     position: absolute;
     right: 0;
@@ -105,7 +105,7 @@ a {
   text-shadow:0 0 0;
 }
 
-/* center and adjust the sidebar contents on smaller devices */
+/* sidebar - mobile*/
 @media (max-width: 768px) {
   #sidebar,#sidebar a.logo {
     text-align:center;
