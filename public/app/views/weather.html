@@ -1,0 +1,100 @@
+<!-- //enter your location and get clothes options -->
+<div class="wrapper">
+  <div class="box2">
+    <div class="row">
+      <!-- sidebar -->
+      <div ng-controller="NavCtrl" class="column col-sm-3" id="sidebar">
+        <a class="logo" href="/">WYR</a>
+        <ul class="nav">
+          <li><a href="/">Home</a> </li>
+          <!-- <li><a href="/weather">Weather</a></li> -->
+          <li><a href="/profile" ng-show="isLoggedIn()">Profile</a> </li>
+          <li><a href="/profile" ng-show="isLoggedIn()">Log a Run</a> </li>
+          <li><a href="/signup" ng-hide="isLoggedIn()">Signup</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#login" ng-hide="isLoggedIn()">Login</a></li>
+          <!--login modal-->
+          <div class="modal fade" id="login" class="modal show" tabindex="-1" role="dialog" aria-labelledby="login" ng-controller="LoginCtrl">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h1 class="text-center">Login</h1>
+                </div>
+                <div class="modal-body">
+                  <form ng-submit="userLogin()" class="form col-md-12 center-block">
+                    <div class="form-group">
+                      <input type="text" class="form-control input-lg" placeholder="Email" ng-model="user.email">
+                    </div>
+                    <div class="form-group">
+                      <input type="password" class="form-control input-lg" placeholder="Password" ng-model="user.password">
+                    </div>
+                    <div class="form-group">
+                      <button class="sharp btn-primary btn-lg btn-block">Login</button>
+                      <span class="pull-right"><a href="/login"></a></span><span><a href="/signup">Register</a></span>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <div class="col-md-12">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                  </div>	
+                </div>
+              </div>
+            </div>
+          </div>
+          <li><a ng-click="logout()" ng-show="isLoggedIn()">Logout</a></li>
+          <li><a href="/about">About</a> </li> 
+        </ul>
+      </div>
+      <!-- /sidebar -->
+      <!-- main -->
+      <div class="column col-sm-9" id="main">
+        <div class="padding">
+          <div class="full col-sm-9">
+            <!-- content -->
+            <div class="col-sm-12" id="featured">   
+              <div class="page-header text-muted">
+                Search for Weather Here:
+              </div>
+            </div>
+            <div class="row">    
+              <div class="col-sm-10">
+                <form ng-submit="getTemperature()">
+                  <input type="text" ng-model="place" class="form-control" placeholder="Get the weather">
+                  <button type="submit" class="btn btn-default">Search</button>
+                </form>
+              </div>
+            </div>
+            <div class="row">    
+              <div class="col-sm-10">
+                <p>Currently in {{wPlace}} it is {{wTemp}}&deg;F & {{wDescription}}.</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">    
+              <div class="col-sm-10">
+                <h3>Based on the current weather, we suggest wearing:</h3>
+              </div>
+            </div>
+            <div class="row">    
+              <div class="col-sm-10">
+                Putting clothing here:
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="page-header text-muted divider">
+                Connect with Us
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <a href="https://twitter.com/palomah213">Twitter</a> <small class="text-muted">|</small> <a href="https://github.com/palomahennessy">GitHub</a> <small class="text-muted">|</small> <a href="https://www.linkedin.com/in/palomahennessy">LinkedIn</a>
+              </div>
+            </div>
+          </div><!-- /col-9 -->
+        </div><!-- /padding -->
+      </div>
+      <!-- /main -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<div class="wrapper">
+  <div class="box">
+    <div class="row">
+      <!-- sidebar -->
+      <div ng-controller="NavCtrl" class="column col-sm-3" id="sidebar">
+        <a class="logo" href="/">WYR</a>
+        <ul class="nav">
+          <li><a href="/">Home</a> </li>
+          <li><a href="/weather">Weather</a></li>
+          <!-- <li><a href="/profile/logrun" ng-show="isLoggedIn()">Log a Run</a></li> -->
+          <!-- <li><a ng-click="logout()" ng-show="isLoggedIn()">Logout</a></li> -->
+          <li><a href="/about">About</a></li>  
+        </ul>
+      </div>
+      <!-- /sidebar -->
+
+      <!-- main -->
+      <div class="column col-sm-9" id="main">
+        <div class="padding">
+          <div class="full col-sm-9">
+
+            <!-- content -->
+
+            <div class="col-sm-12" id="featured">   
+              <div class="page-header text-muted">
+                Please Create an Account
+              </div> 
+            </div>
+            <!--/top story-->
+            <div class="row">    
+              <div class="col-sm-10">
+
+                <form ng-submit="userSignup()">
+                  <legend>Signup</legend>
+                  <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="name" class="form-control" id="name" placeholder="Full Name" ng-model="user.name">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="email" ng-model="user.email">
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="password" ng-model="user.password">
+                  </div>
+
+
+                  <button type="submit" class="btn btn-primary">Signup</button>
+                </form>
+
+                <div class="col-sm-12">
+                  <div class="page-header text-muted divider">
+                    Connect with Us
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-6">
+                    <a href="https://twitter.com/palomah213">Twitter</a> <small class="text-muted">|</small> <a href="https://github.com/palomahennessy">GitHub</a> <small class="text-muted">|</small> <a href="https://www.linkedin.com/in/palomahennessy">LinkedIn</a>
+                  </div>
+                </div>
+
+              </div><!-- /col-9 -->
+            </div><!-- /padding -->
+          </div>
+          <!-- /main -->
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+

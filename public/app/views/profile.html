@@ -1,0 +1,62 @@
+<div class="wrapper">
+    <div class="box">
+        <div class="row">
+            <!-- sidebar -->
+            <div ng-controller="NavCtrl" class="column col-sm-3" id="sidebar">
+                <a class="logo" href="/">WYR</a>
+                <ul class="nav">
+                    <li><a href="/">Home</a> </li>
+                    <li><a href="/weather">Weather</a></li>
+                    <li><a href="/profile/logrun">Log a Run</a></li>
+                    <li><a ng-click="logout()"; ng-show="isLoggedIn()">Logout</a></li>
+                    <li><a href="/about">About</a></li>  
+                </ul>
+            </div>
+            <!-- /sidebar -->
+
+            <!-- main -->
+            <div class="column col-sm-9" id="main">
+                <div class="padding">
+                    <div class="full col-sm-9">
+                      
+                        <!-- header -->
+                        
+                        <div class="col-sm-12" id="featured">   
+                          <div class="page-header text-muted">
+                          Your Past Runs
+                          </div> 
+                        </div>
+
+                        <!--content-->
+                        <div class="row" ng-repeat="run in runs | filter: {user: userId}">
+                          <div class="col-sm-10">
+                            <h3>{{run.title}}</h3>
+                            <h4><small class="text-muted">{{run.date}} • <a ng-href="/profile/{{run._id}}" class="text-muted">Edit Run</a> • <a ng-click="deleteRun(run._id, $index)" class="text-muted">Delete Run</a></small></h4>
+                          	<h4>Distance: {{run.distance}} miles</h4>
+                          	<h4>Total time: {{run.time}} minutes</h4>
+                          	<h4>Notes: {{run.note}}</h4>
+                            <hr>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                          <div class="page-header text-muted divider">
+                            Connect with Us
+                          </div>
+                        </div>
+                      
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <a href="https://twitter.com/palomah213">Twitter</a><small class="text-muted">|</small>  
+                            <a href="https://github.com/palomahennessy">GitHub</a> <small class="text-muted">|</small> 
+                            <a href="https://www.linkedin.com/in/palomahennessy">LinkedIn</a>
+                          </div>
+                        </div>
+       
+                    </div><!-- /col-9 -->
+                </div><!-- /padding -->
+            </div>
+            <!-- /main -->
+        </div>
+    </div>
+</div>

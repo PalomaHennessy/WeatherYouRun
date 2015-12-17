@@ -1,0 +1,51 @@
+/*homepage*/
+
+body {
+	font-family: 'Open Sans', sans-serif, bold;
+
+}
+div#homepage {
+	background-image: url('http://i.huffpost.com/gen/1419972/images/o-RUNNING-LIKE-A-GIRL-facebook.jpg');
+	height: 100vh;
+}
+h1 {
+	color: black;
+	font-size: 50px;
+	font-weight: bold;
+}
+
+
+h2 {
+	color: orange;
+	font-size: 30px;
+/*	font-style: italic;*/
+}
+.homerow {
+	margin-top: 120px;
+}
+
+.glyphicon {
+	font-size: 60px;
+	margin-top: 75px;
+}
+
+#arrow {
+	text-align: right;
+}
+
+/*404 message*/
+
+div.brokenmsg {
+	text-align: center;
+	background-color: black;
+	height: 100vh;
+
+}
+
+h1#brokenmsg {
+	text-align: center;
+	color: white;
+	margin-top: 0px;
+	margin-bottom: 20px;
+	padding-top: 0;
+}
