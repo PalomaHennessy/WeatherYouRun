@@ -24,7 +24,7 @@ angular.module('RunCtrls', ['RunServices'])
           note: $scope.run.note
         }
       })
-      // $location.path('/profile');
+      $location.path('/profile');
     })
   }
   $scope.deleteRun = function(id, idx) {
@@ -33,7 +33,7 @@ angular.module('RunCtrls', ['RunServices'])
       url: '/api/runs/' + id,        
     })
   }
- $location.path('/profile');
+ // $location.path('/profile');
 
 }])
 .controller('ShowCtrl', ['Auth', '$scope', '$routeParams', 'Run', function(Auth, $scope, $routeParams, Run) {
