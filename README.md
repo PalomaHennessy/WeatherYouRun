@@ -4,7 +4,10 @@
 
 ## Basic Information
 
-Weather You Run is a web application where users can look up the current weather, see suggested gear needed, as well as log runs. 
+Weather You Run is a web application where users can:
+* Look up the current weather 
+* See suggested gear needed
+* Log/edit and delete runs. 
 
 ## Technologies Used
  * HTML/CSS/JavaScript
@@ -28,4 +31,4 @@ There are still a lot of bugs! Haven't worked out all CRUD kinks and would like 
 * Runner returns from run and would like to keep track of what went wrong/what went right.  Logs run basics and makes a note not to drink more than 1 cup of coffee before running that distance. 
 
 ## Contributors
-*Paloma Hennessy
+Paloma Hennessy
