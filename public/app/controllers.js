@@ -137,7 +137,7 @@ angular.module('RunCtrls', ['RunServices'])
   $scope.getTemperature = function(){
     $http({
       method: 'GET',
-      url: 'http://localhost:3000/api/temperatures/'+$scope.place 
+      url: '/api/temperatures/'+$scope.place 
     }).then(function success(res){
       if(res){
         $scope.wDescription = res.data.weather[0].description; 
