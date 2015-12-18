@@ -2,61 +2,43 @@ angular.module('RunCtrls', ['RunServices'])
 
 //runs
 
-.controller('HomeCtrl', ['$http', '$scope', '$location', '$routeParams', 'Run', function($http, $scope, $location, $routeParams, Run) {
+.controller('HomeCtrl', ['$http', '$scope', '$location', '$routeParams', '$route', 'Run', function($http, $scope, $location, $routeParams, $route, Run) {
   $scope.runs = [];
   $scope.search = '';
   console.log("I'm in Home controller");
-
   Run.query(function success(data) {
     $scope.runs = data;
   }, function error(data) {
     console.log(data)
   });
-
   $scope.updateRun = function(){
-    console.log('updating?')
-    console.log($routeParams.id)
     Run.query({id:  $routeParams.id}, function success(run) { 
-      console.log(run)
-    $http({
-      method: 'PUT',
-      url: '/api/runs/' + $routeParams.id,
-      data: {id: $routeParams.id, 
-                title: $scope.run.title, 
-                 date: $scope.run.date, 
-                 minutes: $scope.run.minutes, 
-                 hours: $scope.run.hours, 
-                 distance: $scope.run.distance, 
-                 note: $scope.run.note
-               }
-        
+      $http({
+        method: 'PUT',
+        url: '/api/runs/' + $routeParams.id,
+        data: {id: $routeParams.id, 
+          title: $scope.run.title, 
+          date: $scope.run.date, 
+          minutes: $scope.run.minutes, 
+          hours: $scope.run.hours, 
+          distance: $scope.run.distance, 
+          note: $scope.run.note
+        }
       })
+      $location.path('/profile');
     })
   }
-    //Run.update({ id:  $routeParams.id}, run, function success(data) {
-
   $scope.deleteRun = function(id, idx) {
-    // Run.delete({id: id}, function success(run) { 
     $http({
       method: 'DELETE',
-      url: '/api/runs/' + id,
-
-      // data: {id: $routeParams.id, 
-      //           title: $scope.run.title, 
-      //            date: $scope.run.date, 
-      //            minutes: $scope.run.minutes, 
-      //            hours: $scope.run.hours, 
-      //            distance: $scope.run.distance, 
-      //            note: $scope.run.note
-          
-        
-      })
+      url: '/api/runs/' + id,        
+    })
   }
+  $route.reload()
 }])
-
 .controller('ShowCtrl', ['Auth', '$scope', '$routeParams', 'Run', function(Auth, $scope, $routeParams, Run) {
-	userId  = Auth.currentUser().id
-	$scope.userId = userId
+  userId  = Auth.currentUser().id
+  $scope.userId = userId
   $scope.run = {};
   Run.query({user: userId, limit: 10}, function success(data) {
     $scope.runs = data;
@@ -75,9 +57,6 @@ angular.module('RunCtrls', ['RunServices'])
     note: '',
     user: userId
   };
-
-  // console.log($scope.userId)
-
   $scope.createRun = function() {
     Run.save($scope.run, function success(data) {
       $location.path('/profile');
@@ -90,14 +69,14 @@ angular.module('RunCtrls', ['RunServices'])
 //auth
 
 .controller('NavCtrl', ['$scope', 'Auth', function($scope, Auth) {
-	$scope.logout = function() {
-		Auth.removeToken();
-		console.log('My token:', Auth.getToken());
-	}
+  $scope.logout = function() {
+    Auth.removeToken();
+    console.log('My token:', Auth.getToken());
+  }
 }])
 .controller('SignupCtrl', ['$scope', '$http', '$location', 'Auth', function($scope, $http, $location, Auth) {
   $scope.user = {
-  	name: '',
+    name: '',
     email: '',
     password: ''
   };
@@ -129,78 +108,61 @@ angular.module('RunCtrls', ['RunServices'])
     });
   }
 }])
-  
+
 //weather
 
 .controller('WeatherCtrl', ['$scope', '$http', function($scope, $http){
-
   $scope.getTemperature = function(){
     $http({
       method: 'GET',
-      url: '/api/temperatures/'+$scope.place 
-    }).then(function success(res){
-      if(res){
-        $scope.wDescription = res.data.weather[0].description; 
-        $scope.wTemp = res.data.main.temp;
-        $scope.wPlace = res.data.name;
-          console.log($scope.wTemp);
-        switch (true) {
-          case $scope.wTemp >= 85:
-            clothesArray = death
-            console.log(clothesArray)
-          break;
-          case $scope.wTemp >= 70:
-            clothesArray = hot
-            console.log(clothesArray)
-          break;
-          case $scope.wTemp >= 50:
-            clothesArray = warm 
-            console.log(clothesArray)
-          break;
-          case $scope.wTemp >= 40:
-            clothesArray = brisk 
-            console.log(clothesArray)
-          break;
-          case scope.wTemp >= 20:
-            clothesArray = cold
-            console.log(clothesArray)
-          break;
-          case $scope.wTemp >= 0:
-            clothesArray = verycold
-            console.log(clothesArray)
-          break;
-        }
-        $scope.clothesArray = clothesArray
-      }
-    }, function error(res) {
-      console.log(res)
-    });     
-     
-        var clothesArray = [];
-        var veryCold = ['Mittens', 'Long sleeve', 'Heavy jacket', 'Running tights', 'Hat'];
-        var cold = ['Mittens', 'Long sleeve', 'Light jacket', 'Running tights', 'Hat'];
-        var brisk = ['Short sleeve', 'Running tights'];
-        var warm = [''];
-        var hot =['Short sleeve', 'Shorts'];
-        var death = ['Shorts', 'or birthday suit'];
-        var realdeath = ['Would not suggest running']
-
-    // $scope.getclothes = function(){
-
-       // var weatherClothing = $('input[type="text"]: submit');
-       // console.log($scope.wDescription, '$scope.wDescription')
-       // console.log('testing outside if', res.data.main.temp)
-       // if($scope.wTemp){
-       //  console.log('testing inside if')
-
-
-       
-       //   }
-        
-      // }
-
-        }
+// url: 'http://localhost:3000/api/temperatures/'+$scope.place 
+url: '/api/temperatures/'+$scope.place 
+}).then(function success(res){
+  if(res){
+    $scope.wDescription = res.data.weather[0].description; 
+    $scope.wTemp = res.data.main.temp;
+    $scope.wPlace = res.data.name;
+    console.log($scope.wTemp);
+    switch (true) {
+      case $scope.wTemp >= 85:
+      clothesArray = death
+      console.log(clothesArray)
+      break;
+      case $scope.wTemp >= 70:
+      clothesArray = hot
+      console.log(clothesArray)
+      break;
+      case $scope.wTemp >= 50:
+      clothesArray = warm 
+      console.log(clothesArray)
+      break;
+      case $scope.wTemp >= 40:
+      clothesArray = brisk 
+      console.log(clothesArray)
+      break;
+      case scope.wTemp >= 20:
+      clothesArray = cold
+      console.log(clothesArray)
+      break;
+      case $scope.wTemp >= 0:
+      clothesArray = verycold
+      console.log(clothesArray)
+      break;
+    }
+    $scope.clothesArray = clothesArray
+  }
+}, function error(res) {
+  console.log(res)
+});     
+var clothesArray = [];
+var veryCold = ['Mittens', 'Long sleeve', 'Heavy jacket', 'Running tights', 'Hat'];
+var cold = ['Mittens', 'Long sleeve', 'Light jacket', 'Running tights', 'Hat'];
+var brisk = ['Short sleeve', 'Running tights'];
+var warm = ['Short sleeve', 'Shorts'];
+var hot =['Short sleeve', 'Shorts'];
+var death = ['Shorts'];
+}
 // close controller
-		}
-	]
+}
+]
 )

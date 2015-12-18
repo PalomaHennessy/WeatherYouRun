@@ -9,7 +9,7 @@
           <li><a href="/">Home</a> </li>
           <!-- <li><a href="/weather">Weather</a></li> -->
           <li><a href="/profile" ng-show="isLoggedIn()">Profile</a> </li>
-          <li><a href="/profile" ng-show="isLoggedIn()">Log a Run</a> </li>
+          <li><a href="/logrun" ng-show="isLoggedIn()">Log a Run</a> </li>
           <li><a href="/signup" ng-hide="isLoggedIn()">Signup</a></li>
           <li><a href="#" data-toggle="modal" data-target="#login" ng-hide="isLoggedIn()">Login</a></li>
           <!--login modal-->
@@ -85,8 +85,7 @@
             </div>
             <div class="row">    
               <div ng-repeat='item in clothesArray' class="col-sm-10">
-                Putting clothing here:
-                {{item}}
+                <h4>{{item}}</h4>
               </div>
             </div>
             <div class="col-sm-12">
