@@ -115,7 +115,7 @@ angular.module('RunCtrls', ['RunServices'])
   $scope.getTemperature = function(){
     $http({
       method: 'GET',
-      url: '/api/temperatures/'+$scope.place 
+      url: '/api/temperatures/'+ $scope.place 
 }).then(function success(res){
   if(res){
     $scope.wDescription = res.data.weather[0].description; 
@@ -124,28 +124,22 @@ angular.module('RunCtrls', ['RunServices'])
     console.log($scope.wTemp);
     switch (true) {
       case $scope.wTemp >= 85:
-      clothesArray = death
-      console.log(clothesArray)
+      clothesArray = death   
       break;
       case $scope.wTemp >= 70:
-      clothesArray = hot
-      console.log(clothesArray)
+      clothesArray = hot   
       break;
       case $scope.wTemp >= 50:
       clothesArray = warm 
-      console.log(clothesArray)
       break;
       case $scope.wTemp >= 40:
       clothesArray = brisk 
-      console.log(clothesArray)
       break;
-      case scope.wTemp >= 20:
+      case $scope.wTemp >= 20:
       clothesArray = cold
-      console.log(clothesArray)
       break;
       case $scope.wTemp >= 0:
-      clothesArray = verycold
-      console.log(clothesArray)
+      clothesArray = veryCold
       break;
     }
     $scope.clothesArray = clothesArray
