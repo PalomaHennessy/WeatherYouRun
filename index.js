@@ -11,8 +11,7 @@ var secret= "password"
 var mongoose = require('mongoose');
 var User = require('./models/users');
 mongoose.connect('mongodb://localhost:27017/runs');
-// var Run = require('.models/runs');
-// mongoose.connect('mongodb://localhost/runs');
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
@@ -52,4 +51,4 @@ app.get('/*', function(req, res){
 	res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
