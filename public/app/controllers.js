@@ -2,10 +2,9 @@ angular.module('RunCtrls', ['RunServices'])
 
 //runs
 
-.controller('HomeCtrl', ['$http', '$scope', '$location', '$routeParams', '$route', 'Run', function($http, $scope, $location, $routeParams, $route, Run) {
+.controller('HomeCtrl', ['$http', '$scope', '$location', '$routeParams', '$window', 'Run', function($http, $scope, $location, $routeParams, $window, Run) {
   $scope.runs = [];
   $scope.search = '';
-  console.log("I'm in Home controller");
   Run.query(function success(data) {
     $scope.runs = data;
   }, function error(data) {
@@ -25,7 +24,7 @@ angular.module('RunCtrls', ['RunServices'])
           note: $scope.run.note
         }
       })
-      $location.path('/profile');
+      // $location.path('/profile');
     })
   }
   $scope.deleteRun = function(id, idx) {
@@ -34,7 +33,8 @@ angular.module('RunCtrls', ['RunServices'])
       url: '/api/runs/' + id,        
     })
   }
-  $route.reload()
+ $location.path('/profile');
+
 }])
 .controller('ShowCtrl', ['Auth', '$scope', '$routeParams', 'Run', function(Auth, $scope, $routeParams, Run) {
   userId  = Auth.currentUser().id
@@ -115,8 +115,7 @@ angular.module('RunCtrls', ['RunServices'])
   $scope.getTemperature = function(){
     $http({
       method: 'GET',
-// url: 'http://localhost:3000/api/temperatures/'+$scope.place 
-url: '/api/temperatures/'+$scope.place 
+      url: '/api/temperatures/'+$scope.place 
 }).then(function success(res){
   if(res){
     $scope.wDescription = res.data.weather[0].description; 
