@@ -10,7 +10,7 @@ var secret= "password"
 
 var mongoose = require('mongoose');
 var User = require('./models/users');
-mongoose.connect('mongodb://localhost:27017/runs');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:27017/runs');
 
 
 app.use(express.static(path.join(__dirname, 'public')));
